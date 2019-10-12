@@ -1,18 +1,53 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div style="padding-right">
   <mat-toolbar color="primary">
     <mat-toolbar-row style="background-color: #3F51B5">
-    <span>TTC Subway Delay Predictor App</span>
+      <span style="margin-right: 30px; color: white">TTC Subway Delay Predictor App</span>
     </mat-toolbar-row>
   </mat-toolbar>
-  <h1>
+  <h1 style = "text-align: center">
     Enter your data and get a delay prediction !
   </h1>
 
-  <mat-form-field>
+  <!-- Travel Date -->
+  <mat-form-field style = "text-align: left; padding-left: 50px; padding-top: 50px">
     <input matInput [matDatepicker]="picker" placeholder="Choose a date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <br/>
+
+  <!-- Travel Time -->
+  <mat-form-field style = "padding-left: 50px">
+    <input type="time" matInput placeholder="Travel Time" value="Time">
+  </mat-form-field>
+
+  <br/>
+
+  <!-- Start station -->
+  <mat-form-field style = "padding-left: 50px">
+    <input type="text" placeholder="Start Station" aria-label="Number" matInput
+           [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+
+  <br/>
+
+  <!-- Bound -->
+  <mat-form-field style = "padding-left: 50px">
+    <input type="text" placeholder="Destination station" aria-label="Number"
+           matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of options" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
 
 </div>

@@ -9,8 +9,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
-import {MatInputModule} from '@angular/material/input';
-//import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import {MatInputModule} from '@angular/material/input';
     MatDatepickerModule,
     MatFormFieldModule,
     MatMomentDateModule,
-    MatInputModule//,
-    //MomentDateAdapter
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
