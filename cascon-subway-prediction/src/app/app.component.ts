@@ -18,6 +18,8 @@ export class AppComponent  implements OnInit{
   myControl = new FormControl();
   options: string[] = ['Finch', 'North York Center', 'Sheppard-Yonge', 'York Mills',
   'Lawrence', 'Eglinton', 'Davisville'];
+  directionOptions: string[] = ['East', 'West', 'North', 'South'];
+  chosenDirection: string;
   filteredOptions: Observable<string[]>;
   cloudApiKey: "b2L1liMCcap6dKPMj_jKlrpe1-Ix5vGbxbSZ3MQKKuaP";
   mlInstanceID: "a2fa723d-75e3-4f52-9ba0-f3c770442766";

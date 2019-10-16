@@ -5,12 +5,12 @@
       <span style="margin-right: 30px; color: white">TTC Subway Delay Predictor App</span>
     </mat-toolbar-row>
   </mat-toolbar>
-  <h1 style = "text-align: center">
+  <h1 style = "text-align: center; padding-top: 30px">
     Enter your data and get a delay prediction !
   </h1>
 
   <!-- Travel Date -->
-  <mat-form-field style = "text-align: left; padding-left: 50px; padding-top: 50px">
+  <mat-form-field class = positionInCenter style = "padding-top: 30px">
     <input matInput [matDatepicker]="picker" placeholder="Choose a date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
@@ -19,15 +19,15 @@
   <br/>
 
   <!-- Travel Time -->
-  <mat-form-field style = "padding-left: 50px">
-    <input type="time" matInput placeholder="Travel Time" value="Time">
+  <mat-form-field class = positionInCenter>
+    <input type="time" matInput placeholder="Specify the travel time" value="Time">
   </mat-form-field>
 
   <br/>
 
   <!-- Start station -->
-  <mat-form-field style = "padding-left: 50px">
-    <input type="text" placeholder="Start Station" aria-label="Number" matInput
+  <mat-form-field class = positionInCenter>
+    <input type="text" placeholder="Choose the start station" matInput
            [formControl]="myControl" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -40,19 +40,20 @@
   <br/>
 
   <!-- Bound -->
-  <!--<mat-form-field style = "padding-left: 50px">
-    <input type="text" placeholder="Destination station" aria-label="Number"
-           matInput [formControl]="myControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of options" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field> -->
+  <label class = positionInCenter style="margin-bottom: 10px" > Choose the direction on the subway line </label>
+
+  <mat-radio-group class = positionInCenter
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+    [(ngModel)]="chosenDirection">
+    <mat-radio-button class="example-radio-button" *ngFor="let dirOption of directionOptions" [value]="dirOption">
+      {{dirOption}}
+    </mat-radio-button>
+  </mat-radio-group>
 
   <br/>
 
-  <button mat-button (click)="performPrediction()">Predict</button>
+  <button mat-fab color="primary" class = centerButton (click)="performPrediction()">Predict</button>
 
 </div>
 

@@ -7,3 +7,29 @@
 .example-full-width {
   width: 100%;
 }
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.positionInCenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}
+
+.centerButton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}

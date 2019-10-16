@@ -12,7 +12,13 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+
+
+
 
 @NgModule({
   declarations: [
@@ -30,7 +36,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatRadioModule,
+    FormsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
