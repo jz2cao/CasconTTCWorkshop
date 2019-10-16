@@ -4,6 +4,7 @@ import { MatDatepickerInputEvent } from "@angular/material";
 import { Observable } from 'rxjs';
 import { OnInit} from '@angular/core';
 import {map, startWith} from 'rxjs/operators';
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import 'hammerjs';
 
 @Component({
@@ -18,6 +19,10 @@ export class AppComponent  implements OnInit{
   options: string[] = ['Finch', 'North York Center', 'Sheppard-Yonge', 'York Mills',
   'Lawrence', 'Eglinton', 'Davisville'];
   filteredOptions: Observable<string[]>;
+  cloudApiKey: "b2L1liMCcap6dKPMj_jKlrpe1-Ix5vGbxbSZ3MQKKuaP";
+  mlInstanceID: "a2fa723d-75e3-4f52-9ba0-f3c770442766";
+
+  constructor(private httpClient: HttpClient) {};
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
@@ -31,6 +36,56 @@ export class AppComponent  implements OnInit{
     const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  performPrediction() {
+    // getting iam token
+
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const tokenurl = "https://iam.bluemix.net/oidc/token"
+
+    this.httpClient.post(proxyurl + tokenurl,
+    new HttpParams()
+      .set("grant_type", "urn:ibm:params:oauth:grant-type:apikey")
+      .set("apikey", "b2L1liMCcap6dKPMj_jKlrpe1-Ix5vGbxbSZ3MQKKuaP")
+    ,
+      { headers: new HttpHeaders()
+                .set("Content-Type", "application/x-www-form-urlencoded")
+                .set("Accept", "application/json")
+                .set("Access-Control-Allow-Origin", "*")
+      }
+    )
+    .subscribe(
+      data  => {
+        console.log("PUT Request is successful ", data);
+        const result = JSON.parse(JSON.stringify(data));
+        const bearerToken = result.access_token;
+        const bodyData = {"fields":["age","sex","cp","trestbps","chol","fbs","restecg","thalach","exang","oldpeak","slope","ca","thal"],"values":[[123,123,213,123,213,123,213,123,213,123,45,345,345]]};
+        const predictionUrl = "https://us-south.ml.cloud.ibm.com/v3/wml_instances/38b8aa8f-fb60-4d34-8866-16ac7b076618/deployments/6d0cda0b-5a6c-487d-9f6d-c07069b9334a/online";
+
+        this.httpClient.post(proxyurl + predictionUrl,
+          bodyData,
+            { headers: new HttpHeaders()
+                      .set("Content-Type", "application/javascript")
+                      .set("Accept", "application/json")
+                      .set("Authorization", `Bearer ${bearerToken}`)
+                      .set("ML-Instance-ID", "a2fa723d-75e3-4f52-9ba0-f3c770442766")
+            }
+        )
+        .subscribe(
+          data => {
+            console.log("prediction successful", data);
+          },
+          error => {
+            console.log("Rrror", error);
+          }
+        )
+
+      },
+      error  => {
+        console.log("Rrror", error);
+      }
+    );
   }
 
   /*events: string[] = [];
