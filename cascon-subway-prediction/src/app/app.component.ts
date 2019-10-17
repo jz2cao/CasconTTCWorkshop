@@ -15,19 +15,27 @@ import 'hammerjs';
 
 export class AppComponent  implements OnInit{
   title = 'cascon-subway-prediction';
-  myControl = new FormControl();
+  control1 = new FormControl();
+  control2 = new FormControl();
   options: string[] = ['Finch', 'North York Center', 'Sheppard-Yonge', 'York Mills',
   'Lawrence', 'Eglinton', 'Davisville'];
   directionOptions: string[] = ['East', 'West', 'North', 'South'];
   chosenDirection: string;
-  filteredOptions: Observable<string[]>;
+  filteredOptions1: Observable<string[]>;
+  filteredOptions2: Observable<string[]>;
   cloudApiKey: "b2L1liMCcap6dKPMj_jKlrpe1-Ix5vGbxbSZ3MQKKuaP";
   mlInstanceID: "a2fa723d-75e3-4f52-9ba0-f3c770442766";
 
   constructor(private httpClient: HttpClient) {};
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges
+    this.filteredOptions1 = this.control1.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+
+    this.filteredOptions2 = this.control2.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
@@ -37,7 +45,7 @@ export class AppComponent  implements OnInit{
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.options.filter(option => option.toLowerCase().startsWith(filterValue));
   }
 
   performPrediction() {

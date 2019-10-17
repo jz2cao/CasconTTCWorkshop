@@ -10,7 +10,7 @@
   </h1>
 
   <!-- Travel Date -->
-  <mat-form-field class = positionInCenter style = "padding-top: 30px">
+  <mat-form-field class = "positionInCenter" style = "padding-top: 30px">
     <input matInput [matDatepicker]="picker" placeholder="Choose a date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
@@ -19,18 +19,29 @@
   <br/>
 
   <!-- Travel Time -->
-  <mat-form-field class = positionInCenter>
+  <mat-form-field class = "positionInCenter">
     <input type="time" matInput placeholder="Specify the travel time" value="Time">
   </mat-form-field>
 
   <br/>
 
   <!-- Start station -->
-  <mat-form-field class = positionInCenter>
+  <mat-form-field class = "positionInCenter">
     <input type="text" placeholder="Choose the start station" matInput
-           [formControl]="myControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+           [formControl]="control1" [matAutocomplete]="startStation">
+    <mat-autocomplete #startStation="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions1 | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <!-- Destination station -->
+  <mat-form-field class = "positionInCenter" disabled="disabled">
+    <input type="text" placeholder="Choose the destination station" matInput
+           [formControl]="control2" [matAutocomplete]="endStation">
+    <mat-autocomplete #endStation="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
         {{option}}
       </mat-option>
     </mat-autocomplete>
@@ -39,14 +50,13 @@
 
   <br/>
 
-  <!-- Bound -->
-  <label class = positionInCenter style="margin-bottom: 10px" > Choose the direction on the subway line </label>
-
-  <mat-radio-group class = positionInCenter
+  <!-- Direction (N, S, E, W) -->
+  <label class = "positionInCenter" style="margin-bottom: 10px" > OR Choose the direction on the subway line </label>
+  <mat-radio-group class = "positionInCenter"
     aria-labelledby="example-radio-group-label"
-    class="example-radio-group"
+    class="radio-group"
     [(ngModel)]="chosenDirection">
-    <mat-radio-button class="example-radio-button" *ngFor="let dirOption of directionOptions" [value]="dirOption">
+    <mat-radio-button class="radio-button" *ngFor="let dirOption of directionOptions" [value]="dirOption">
       {{dirOption}}
     </mat-radio-button>
   </mat-radio-group>

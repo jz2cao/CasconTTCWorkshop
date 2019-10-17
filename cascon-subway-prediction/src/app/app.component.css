@@ -8,7 +8,7 @@
   width: 100%;
 }
 
-.example-radio-group {
+.radio-group {
   display: flex;
   flex-direction: column;
   margin-left: auto;
@@ -16,7 +16,7 @@
   width: 20%;
 }
 
-.example-radio-button {
+.radio-button {
   margin: 5px;
 }
 
