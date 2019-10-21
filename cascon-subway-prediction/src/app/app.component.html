@@ -1,70 +1,90 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="padding-right">
-  <mat-toolbar color="primary">
-    <mat-toolbar-row style="background-color: #3F51B5">
-      <span style="margin-right: 30px; color: white">TTC Subway Delay Predictor App</span>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <h1 style = "text-align: center; padding-top: 30px">
-    Enter your data and get a delay prediction !
-  </h1>
-
-  <!-- Travel Date -->
-  <mat-form-field class = "positionInCenter" style = "padding-top: 30px">
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <br/>
-
-  <!-- Travel Time -->
-  <mat-form-field class = "positionInCenter">
-    <input type="time" matInput placeholder="Specify the travel time" value="Time">
-  </mat-form-field>
-
-  <br/>
-
-  <!-- Start station -->
-  <mat-form-field class = "positionInCenter">
-    <input type="text" placeholder="Choose the start station" matInput
-           [formControl]="control1" [matAutocomplete]="startStation">
-    <mat-autocomplete #startStation="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions1 | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-
-  <!-- Destination station -->
-  <mat-form-field class = "positionInCenter" disabled="disabled">
-    <input type="text" placeholder="Choose the destination station" matInput
-           [formControl]="control2" [matAutocomplete]="endStation">
-    <mat-autocomplete #endStation="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-
-
-  <br/>
-
-  <!-- Direction (N, S, E, W) -->
-  <label class = "positionInCenter" style="margin-bottom: 10px" > OR Choose the direction on the subway line </label>
-  <mat-radio-group class = "positionInCenter"
-    aria-labelledby="example-radio-group-label"
-    class="radio-group"
-    [(ngModel)]="chosenDirection">
-    <mat-radio-button class="radio-button" *ngFor="let dirOption of directionOptions" [value]="dirOption">
-      {{dirOption}}
-    </mat-radio-button>
-  </mat-radio-group>
-
-  <br/>
-
-  <button mat-fab color="primary" class = centerButton (click)="performPrediction()">Predict</button>
-
+<div>
+  <div>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row style="background-color: #3F51B5">
+        <span style="margin-right: 30px; color: white">TTC Subway Delay Predictor</span>
+      </mat-toolbar-row>
+    
+    </mat-toolbar>
+    <h1 style = "text-align: center; padding-top: 30px">
+      Enter your data and get a delay prediction !
+    </h1>
+  
+    <div style="display: flex">
+      <div style="flex: 2">
+        <!-- Travel Date -->
+        <mat-form-field class = "positionInCenter" style = "padding-top: 30px">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onDateChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <br/>
+    
+        <!-- Travel Time -->
+        <mat-form-field class = "positionInCenter">
+          <input type="time" matInput placeholder="Specify the travel time" value="Time" (change)="onTraveltimeChange($event)">
+        </mat-form-field>
+        <br/>
+    
+        <!-- Start station -->
+        <mat-form-field class = "positionInCenter">
+          <input type="text" placeholder="Choose the start station" matInput
+                [formControl]="control1" [matAutocomplete]="startStation">
+          <mat-autocomplete #startStation="matAutocomplete" (optionSelected)="onStartStationChange($event)">
+            <mat-option *ngFor="let option of filteredOptions1 | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        
+        <!-- Destination station
+        <mat-form-field class = "positionInCenter" disabled="disabled">
+          <input type="text" placeholder="Choose the destination station" matInput
+                [formControl]="control2" [matAutocomplete]="endStation">
+          <mat-autocomplete #endStation="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions2 | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+    
+        <br/> -->
+    
+          <!-- line (BD, SHP, SRT, YU) -->
+          <label class = "positionInCenter" style="margin-bottom: 10px" > OR Choose the direction on the subway line </label>
+          <mat-radio-group class = "positionInCenter"
+            aria-labelledby="example-radio-group-label"
+            class="radio-group"
+            [(ngModel)]="chosenLine">
+            <mat-radio-button class="radio-button" *ngFor="let line of lineOptions" [value]="line">
+              {{line}}
+            </mat-radio-button>
+          </mat-radio-group>
+        
+        <br/>
+    
+        <!-- Direction (N, S, E, W) -->
+        <label class = "positionInCenter" style="margin-bottom: 10px" > OR Choose the direction on the subway line </label>
+        <mat-radio-group class = "positionInCenter"
+          aria-labelledby="example-radio-group-label"
+          class="radio-group"
+          [(ngModel)]="chosenDirection">
+          <mat-radio-button class="radio-button" *ngFor="let dirOption of directionOptions" [value]="dirOption">
+            {{dirOption}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <br/>
+        <button mat-fab color="primary" class = centerButton (click)="performPrediction()">Predict</button>
+      </div>
+      <div style="flex: 1; display: flex; align-items: center;">
+        <div>
+          <label>Expected delay in minutes</label> <br/>
+          <label>{{outputValue}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
