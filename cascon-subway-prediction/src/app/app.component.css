@@ -10,7 +10,7 @@
 
 .radio-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-left: auto;
   margin-right: auto;
   width: 20%;
@@ -24,7 +24,13 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 30%;
+  width: 10cm;
+}
+
+.result {
+  display: block;
+  text-align: center;
+
 }
 
 .centerButton {
