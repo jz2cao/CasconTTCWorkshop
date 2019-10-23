@@ -72,11 +72,10 @@
             (click)="performPrediction()">Predict
     </button>
 
-    <!--<div style="flex: 1; display: flex; align-items: center;">-->
     <div class="positionInCenter" style="margin-top: 30px">
       <mat-chip-list>
-        <mat-chip>
-          <h2>Expected delay in minutes: {{outputValue}}</h2>
+        <mat-chip class="chipStyle">
+          <h2>~ Expected delay in minutes: {{outputValue}} ~</h2>
         </mat-chip>
       </mat-chip-list>
     </div>

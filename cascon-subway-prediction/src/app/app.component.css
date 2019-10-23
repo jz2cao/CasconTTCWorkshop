@@ -39,3 +39,12 @@
   margin-right: auto;
   margin-top: 20px;
 }
+
+.chipStyle {
+  background-color: #eb7134;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10cm;
+  text-align: center;
+}
